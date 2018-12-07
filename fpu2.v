@@ -72,7 +72,7 @@ module fpu(
 
     fadd u1 (ds_val,{dt_val[31] ^ ctrl[1],dt_val[30:0]},fadd_y);
     fmul u3 (ds_val,dt_val,fmul_y);
-    fdiv u4 (ds_val,fdiv_y);
+    fdiv u4 (ds_val,dt_val,fdiv_y);
     fsqrt u5 (ds_val,fsqrt_y);
     ftoi u9 (ds_val,ftoi_y);
     itof u10 (ds_val,itof_y);
@@ -108,7 +108,7 @@ module fpu(
     wire [31:0] flup_y;
     assign flup_y = TABLE(imm[6:0]);
 
-    assign reg_addr = (4'd0 || 4'd15) ? 6'b0: dd;
+    assign reg_addr = (ctrl == 4'd0 || ctrl == 4'd15) ? 6'b0: dd;
 
     function [31:0] Y(
         input [3:0] CTRL,
